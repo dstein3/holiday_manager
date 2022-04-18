@@ -1,0 +1,448 @@
+
+holidays need to be saved in dictionaries of name:_ and date:_ date appears to be canadian format
+name is a string and date is a datetime type
+
+The UI
+
+I   Start-UP + Menu
+
+II  Add a holidays
+
+III Remove a holidays
+
+IV  Save Holiday List
+
+V   View Holidays
+
+VI  Exit
+
+
+Function Dictionary
+-------------------
+Holiday - An object class containing a dictionary with a name and date key
+HolidayList - An object that is a list of Holiday objects, contains many methods on itself
+(-)addHoliday - makes sure the object entered is a holiday objects, uses a method to append it to HolidayList object, prints that it has done so
+(-)findHoliday - takes a holiday name and date as input and returns the holiday objects in HolidayList or else returns a prints
+(-)removeHoliday - takes a name and date, finds the holiday in the list and deletes it, printing that it has done so
+(-)readJSON - reads the saved JSON file and puts all querried holidays in the list, basically pulls the last used version of the holiday document
+(-)save_to_JSON - takes the holiday list and writes it to an empty JSON file, or the file as it exists current, upploads the current list
+*(-)scrapeHolidays - reaches the API and pulls all holidays, checks them against the current list and adds any that don't already exist, ignorning holidays or inteterminent or more than 1 dictionary
+*(-)numHolidays - returns the length of the current holiday list
+*(-)filter_holidays_by_week - returns all holidays for the specified week in a list, use a lambda
+*(-)display_holidays_by_week - print filter holidays by week as list with visible objects
+*(-)get weather - returns the weather for days this week and the next?
+*(-)view_current_week - uses filter and siplay holidays to print the holidays that are this week and year (week,year) as input
+
+Function pseudocode
+-------------------
+def addHoliday()
+
+def format_date_object(string):
+    year = string[0:3]
+    month = string[5:6]
+    day = string[8:9]
+    return dt(int(year),int(month),int(day))
+
+def removeHoliday(name,date):
+    for holiday in innerHolidays:
+        if holiday.get_name() == name and holiday.get_date() == format_date_object(date)
+            innerHolidays.remove(holiday)
+
+def addHoliday(self,holiday_name,date):
+    try:
+        format_date_object(date)
+    except:
+        print('your date must be in the format of \'yyyy-mm-dd\'')
+    else:
+        for dic in holidaylist:
+            if dic.get_name() = holiday_name:
+                correct_input = False
+                while correct_input = False:
+                    replace_input = print('there's already a ' + holiday_name + 'at ' + str(dict.get_date())[0:10] + 'would you like to replace it? [y/n]: ')
+                    if replace_input.lower() = 'y':
+                        dic[holiday_name]=date_object
+                        print(holiday_name + ' date is now' + str(date))
+                        correct_input = True
+                    elif replace_input.lower() = 'n':
+                        print(exited appplication)
+                        correct_input = False 
+                print('returning to menu.')
+            else:
+                date_object = dt(date)
+                holidaylist.append({holiday_name}:date_object)
+                print('holiday added to thing)
+    except:
+        print('error, make sure your date is in the format (yyyy-mm-dd), all numeric')
+    if type(date) == "datetime.datetime"
+    else:
+        print('T')
+
+def format_md(year,semi_raw_date):
+        semi_raw_date = semi_raw_date.split(" ")
+        if semi_raw_date[0] == "Jan":
+            semi_raw_date[0] = 1
+            return dt(year,semi_raw_date[0],int(semi_raw_date[1]))
+        elif semi_raw_date[0] == "Feb":
+            semi_raw_date[0] = 2
+            return dt(year,semi_raw_date[0],int(semi_raw_date[1]))
+        elif semi_raw_date[0] == "Mar":
+            semi_raw_date[0] = 3
+            return dt(year,semi_raw_date[0],int(semi_raw_date[1]))
+        elif semi_raw_date[0] == "Apr":
+            semi_raw_date[0] = 4
+            return dt(year,semi_raw_date[0],int(semi_raw_date[1]))
+        elif semi_raw_date[0] == "May":
+            semi_raw_date[0] = 5
+            return dt(year,semi_raw_date[0],int(semi_raw_date[1]))
+        elif semi_raw_date[0] == "Jun":
+            semi_raw_date[0] = 6
+            return dt(year,semi_raw_date[0],int(semi_raw_date[1]))
+        elif semi_raw_date[0] == "Jul":
+            semi_raw_date[0] = 7
+            return dt(year,semi_raw_date[0],int(semi_raw_date[1]))
+        elif Semi_raw_date[0] == "Aug":
+            semi_raw_date[0] = 8
+            return dt(year,semi_raw_date[0],int(semi_raw_date[1]))
+        elif semi_raw_date[0] == "Sep":
+            semi_raw_date[0] = 9
+            return dt(year,semi_raw_date[0],int(semi_raw_date[1]))
+        elif semi_raw_date[0] == "Oct":
+            semi_raw_date[0] = 10
+            return dt(year,semi_raw_date[0],int(semi_raw_date[1]))
+        elif semi_raw_date[0] == "Nov":
+            semi_raw_date[0] = 11
+            return dt(year,semi_raw_date[0],int(semi_raw_date[1]))
+        elif semi_raw_date[0] == "Dec":
+            semi_raw_date[0] = 12
+            return dt(year,semi_raw_date[0],int(semi_raw_date[1]))
+        else:
+            print('warning, not all semi-raw dates are of the same format')
+    #helper function for scrapeHTML()
+#takes the date format from the holiday API and converts it to the Canadian forma
+
+def getHTML(url):
+    response = requests.get(url)
+    return response.text
+#helper function for scrapeHolidays():
+
+years = [2020,2021,2022,2023,2024]
+    for position in range(0,len(years)):
+
+def scrape_one_year(year):
+    #try:
+    html = getHTML("https://www.timeanddate.com/holidays/us/" + Years[position])
+    soup = BeautifulSoup(html,'html.parser')
+    table = soup.find('table',attrs = {'id':'holidays-table'})
+    for row in table.find_all('tbody'):
+        cells = row
+    raw_dates = cells.find_all('th',class_='nw')
+    raw_names = cells.find_all('a')
+    date_list = []
+    name_list = []
+    dict_list = []
+    for item in raw_dates:
+        date_list.append(item.text)
+    for item in raw_names:
+        name_list.append(item.text)
+    dateobjects = map(lambda x: format_md(Year,x), date_list)
+    for holidaynum in range(0,len(date_objects)):
+    dictX = Holiday(['name']=name_list[holidaynum],dictX['date']=date_objects[holidaynum])
+    dictlist.append(dictX)
+    return dictlist?
+    except:
+        print('Website is not reachable at the moment.')
+    #collects the data for holidays belonging to a specific year
+
+result_dict = []
+for i in range(len(dictlist)): 
+    if dictlist[i] not in dictlist[i + 1:]: 
+        result_dict.append(dictlist[i])
+#function taken from devenum.com
+return result_dict
+
+scrapeHolidays(inner_list):
+    full_list = []
+    years = [2020,2021,2022,2023,2024]
+    for anum in years:
+        full_list = full_list + scrape_one_year(anum)
+    full_list
+    for holiday in full_list:
+        if holiday not in inner_list:
+            inner_list.append(holiday)
+    return inner_list
+    #scrapes all 5 years and appends them to the innerHoliday list
+
+def numHolidays(dictlist):
+    return len(dictlist)
+
+//
+
+def create_weeklist_by_year(list1,year):
+    for num in range(0,52):
+        list1.append((dt(year,1,1)+datetime.timedelta(days=(7*num))))
+    list1.append(dt(year+1,1,1))
+    #creates lists containing the first date for a numerical week of the year
+
+create_weeklist_by_year(bgdt2020,2020)
+create_weeklist_by_year(bgdt2021,2021)
+create_weeklist_by_year(bgdt2022,2022)
+create_weeklist_by_year(bgdt2023,2023)
+create_weeklist_by_year(bgdt2024,2024)
+#created lists of numerical week start-dates for each year, includes the offsets created by leap-years
+
+def grabweeknum_by_year(beginlist,date):
+    pos = 0
+    cycles = len(beginlist)
+    while cycles > 0:
+        if date >= beginlist[pos] and date < beginlist[pos+1]:
+            return pos+1
+        else:
+            pos = pos + 1
+            cycles = cycles - 1
+    print('an error occured')
+    #takes a year and month-day date, returns the numerical week for that date as an integer from 1 to 52
+    #helper function for the next
+
+def getweeknum(date):
+    if date.year == 2020:
+        return grabweeknum_by_year(bgdt2020,date)
+    elif date.year == 2021:
+        return grabweeknum_by_year(bgdt2021,date)
+    elif date.year == 2022:
+        return grabweeknum_by_year(bgdt2022,date)
+    elif date.year == 2023:
+        return grabweeknum_by_year(bgdt2023,date)
+    elif date.year == 2024:
+        return grabweeknum_by_year(bgdt2024,date)
+    else:
+        print('This date is out of range')
+        #plugs the years into the prior function
+
+\\
+
+def inWeeknum(holiday_object, weeknum):
+    if getweeknum(holiday_object['date']) == weeknum:
+        return True
+    else:
+        return False 
+#helper function for filterHolidaybyweek
+
+filterHolidaybyWeek(anum,weeknum,innerHolidaylist):
+    innerHolidayList
+    filteredbyYear = filter(lambda x: x.get_date().year = anum, innerHolidayList)
+    filteredbyweek = filter(lambda x: inweeknum(x,weeknum), filteredbyYear)
+    return filteredbyWeek
+
+displayHolidaysbyWeek(listofHolidays):
+    for holiday in listofHolidays:
+        print(holiday)
+        #shows holidays within a certain numerical week
+
+def getWeather(thisweek,):
+    try:
+    url = "https://community-open-weather-map.p.rapidapi.com/climate/month"
+    querystring = {"q":"Minneapolis"}
+    headers = {
+	    "X-RapidAPI-Host": "community-open-weather-map.p.rapidapi.com",
+	    "X-RapidAPI-Key": "99edfc553emsh39e5c6842d0d192p1b9907jsn19f2a0887c95"
+    }
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    response = response.json()
+    avgTemp = []
+    for day in response['list']:
+        avgTemp.append(day['temp']['average'])
+    ###
+    except:
+        print('something went wrong in the weather API)
+    else:
+    today = dt.today()
+    list = filteredHolidaybyweek(today.year,getweeknum(today),innerHolidaylist)
+    for pos in range(0,7):
+        if dt(today.year,today,month,today.day) == list[pos].get_name():
+            position = pos
+        else:
+            print('today is not in week')
+    list = list[position:6]
+    weather = weather[position:6]
+    for num in range(0,len(list)):
+        print(list[num] + '' + weather[num])
+    #returns the list of temperatures for today and the next 29 days as a list, the API uses a weird temperature unit
+    #that i don't understand
+
+    def view_current_week()
+        today = dt.today()
+        return display_holidays_by_week(filter_holidays_by_week(today.year,getweeknum(today),innerHolidayList))
+
+    I need to turn the date_list into tuples of (year,month,day) all numerical
+
+    ###
+
+Big Steps
+-------------
+create a dictionary converting days by week into weeknum
+create code for scraping the holidays
+create code for scraping the weather
+write out a text file for your menus
+pseudocode the functions
+pseudocode the menus
+code everything
+
+create a dictionary converting days by week into JSON
+
+How can I do this? Maybe use a for loop starting on 1/1, append all years figure out if you can compare date objects
+make a function that turns 
+
+main():
+print(menu text)
+
+def legal_menu_imp(imput):
+    try:
+        int(imput)
+    except:
+        print('Your input must be a number from 1 to 5')
+        return False
+    else:
+        if int(imput) >= 1 and int(imput) <= 5:
+            return True
+while:
+    menu_input = input('Enter the number for the menu you wish to use: ')
+    if legal_menu_input(menu_input):
+        break
+    else:
+        print('Your input must a be a number from 1 to 5.')
+        continue
+if int(menu_input) == 1:
+    print(menu 1)
+    
+    #Menu 1
+    print(adding holiday lines)
+    name_input = input('Holiday Name: ')
+    date_input = input('Date [yyyy-mm-dd]: ')
+    def addHolidayMenu(innerHolidayList):
+    still_Adding = True
+    while still_adding:
+        holiday_input = input('Holiday: ')
+        date_input = input('Date: ')
+        innerHolidayList.addHoliday(holiday_input,date_input)
+        list.addHoliday(holiday_input,date_input)
+        still_adding =  False
+        while not still_adding:
+            continue = input('Would you like to add more? [y/n]')
+            if continue.lower() == 'y':
+                still_Adding = True
+                break
+            elif continue.lower() == 'n':
+                still_Adding = False
+                break
+        if still_Adding:
+            continue
+        else:
+            break
+    print('Returning to Main Menu...\n')
+elif int(menu_input) == 2:
+    print(menu 2)
+    #outline of the coding for the flow of the first menu
+    
+    #MENU 2
+    while still_working:
+        continuing = ('Would you like to subtract more? [y/n]: )
+        if continuing.lower() == 'y'
+            still_aubtracting = True
+            break
+        elif continue.lower() == 'n'
+            still_subtracting = False
+            break
+    if still_subtracting:
+        continue
+    else:
+        break
+    print('Returning to Main Menu)
+elif int(menu_input) == 3:
+    print(menu 3)
+elif int(menu_input) == 4:
+    print(menu 4)
+elif int(menu_input) == 5:
+    print(menu 5)
+    #outline of the flow of coding for the second menu
+
+    #MENU4
+    legal_input = False
+    while not legal_input:
+        year_input = input('which year?: )
+        try:
+            int(input)
+        except:
+            print('the input must be a numeric year from 2020 to 2024'.)
+            continue
+        else:
+            if int(year_input) in [2020,2021,2022,2023,2024]
+                legal_input = True
+            else:
+                print('The available years are 2020 through 2024')
+                continue
+        year_pool = list(filter(lambda x: x.get_date().year == year_input, innerHolidayList)
+        legal_input = False
+        while not legal_input:
+            week_input = input(Which week?)
+            if week_input.strip() == '':
+                correct_input = False
+                while not correct_input:
+                    weather_input = input('would you like to see the weather for the remaining days this week? [y/n]')
+                    if weather_input.lower() == 'y':
+                        see_weather = True
+                        correct_input = True
+                        break
+                    elif weather_input.lower() == 'n':
+                        see_weather = False
+                        correct_input = True
+                        break
+                    else:
+                        print('The input must either be \'y\' or \'n\'')
+                        continue
+                if see_weather:     THIS SHOULD BE ITS OWN FUNCTION
+                today = ...
+                query the weather app and formulate the list of values 
+                filter to this week
+                this_year_pool = list(filter(lambda x: x.get_date().year == today.year, innerHolidayList)
+                this_week = list(filter(lambda x: get_week_num(x.get_date()) == get_week_num(today), this_year_pool))
+                days_left_this_week = list(filter(lambda x: x.get_date() >= today, this_week)
+                weather_tuple_list = []
+                def convert_date_to_week_position(holiday):
+                    if holiday.get_date() == today:
+                        return 0
+                    elif holiday.get_date == today+datetime.timedelta(days=1)
+                        return 1
+                    elif holiday.get_date == today+datetime.timedelta(days=2)
+                        return 2
+                    elif holiday.get_date == today+datetime.timedelta(days=3)
+                        return 3
+                    elif holiday.get_date == today+datetime.timedelta(days=4)
+                        return 4
+                    elif holiday.get_date == today+datetime.timedelta(days=5)
+                        return 5
+                    elif holiday.get_date == today+datetime.timedelta(days=6)
+                        return 6
+                for holidays in days_left_this_week:
+                    weather_tuple_list.append(holiday, weather[convert_date_to_week_position(holiday.get_date())])
+                for tupl in weather_tuple_list:
+                    print(f'{str(tupl[0])} - {str(tupl[1]})
+                else:
+                    this_year_pool = list(filter(lambda x: x.get_date().year == today.year, innerHolidayList)
+                    this_week = list(filter(lambda x: get_week_num(x.get_date()) == get_week_num(today), this_year_pool))
+                    for holiday in this_week:
+                        print(holiday)
+            else:
+                try:
+                    int(week_input)
+                except:
+                    print('The week input must be a number from 1 to 52.')
+                else:
+                    year_pool_filtered = list(filter(lambda x: get_week_num(x.get_date()) == int(week_input), year_pool))
+                    for holiday in year_pool_filtered:
+                        print(holiday)
+        #outline for the flow of the fourth menu
+
+
+
+
+
